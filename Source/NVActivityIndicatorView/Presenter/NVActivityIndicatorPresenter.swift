@@ -318,10 +318,8 @@ public final class NVActivityIndicatorPresenter {
     }
 
     fileprivate func hide(_ fadeOutAnimation: FadeOutAnimation?) {
-        guard let keyWindow = UIApplication.shared.keyWindow else { return }
-
-        for item in keyWindow.subviews
-            where item.restorationIdentifier == restorationIdentifier {
+        for window in UIApplication.shared.windows {
+            for item in window.subviews where item.restorationIdentifier == restorationIdentifier {
                 if let fadeOutAnimation = fadeOutAnimation {
                     fadeOutAnimation(item) {
                         item.removeFromSuperview()
@@ -329,6 +327,7 @@ public final class NVActivityIndicatorPresenter {
                 } else {
                     item.removeFromSuperview()
                 }
+            }
         }
     }
 }
